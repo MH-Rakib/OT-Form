@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div class="container">
+
+        <!-- Ot Policy -->
+
+        <div class="row">
+            <div class="col-12">
+                <h6 class="heading">Over Time Policy</h6>
+            </div>
+        </div>
+
+        <div class="card">
+            <form class="row">
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Title</label>
+                    <input class="form-control" type="text" />
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Standard Work Hour</label>
+                    <input class="form-control" type="number" />
+                </div>
+            </form>
+        </div>
+
+        <!-- OT Rate Setup -->
+
+        <div class="card">
+            <form class="row">
+                <div class="col-12">
+                    <p class="sub-title">Over Time Rate Setup</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Rate Type</label>
+                    <select class="form-control" id="overTimeRateType" onchange="OnChangeOverTimeRate()">
+                        <option selected>Select Rate Setup</option>
+                        <option value="flat">Flat Rate</option>
+                        <option value="slot">Flat Slot Based</option>
+                        <option value="flat">Multiplication Of Basic</option>
+                        <option value="slot">Multiplication Of Basic Slot Based</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="overTimeSlotRate">
+                    <label class="font-sm">Over Time rate (Slot)</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="overTimeNonSlotRate">
+                    <label class="font-sm">Over Time rate (Non Slot)</label>
+                    <input class="form-control" type="number" />
+                </div>
+            </form>
+
+            <div class="my-4"></div>
+
+            <!-- Weekend -->
+
+            <form class="row">
+                <div class="col-12">
+                    <p class="sub-title">Weekend</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasWeekendSpecialRate">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Weekend Special Rate
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" style="display: none;" id="weekendSpecialRateType">
+                    <label class="font-sm">Rate Type</label>
+                    <select class="form-control">
+                        <option selected>Select Rate Setup</option>
+                        <option>Fixed</option>
+                        <option>Multiplication Of Basic</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Special Rate</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <!-- Religious Holiday -->
+
+            <form class="row">
+                <div class="col-12">
+                    <p class="sub-title">Religious Holiday</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasReligiousHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Religious Holiday Special Rate
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="religiousHolidayType">
+                    <label class="font-sm">Special Rate Type</label>
+                    <select class="form-control">
+                        <option selected>Select Rate Setup</option>
+                        <option>Fixed</option>
+                        <option>Multiplication Of Basic</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Holiday Special Rate</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <!-- Regular Holiday -->
+
+            <form class="row">
+                <div class="col-12">
+                    <p class="sub-title">Regular Holiday</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasRegularHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Regular Holiday Special Rate
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="regularHolidayType">
+                    <label class="font-sm">Special Rate Type</label>
+                    <select class="form-control">
+                        <option selected>Select Rate Setup</option>
+                        <option>Fixed</option>
+                        <option>Multiplication Of Basic</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Holiday Special Rate</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card">
+            <form class="row">
+
+                <!-- Meal Allowance -->
+
+                <div class="col-12">
+                    <p class="sub-title">Meal Allowance</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMealAllowance">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Meal Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="mealAllowanceType">
+                    <label class="font-sm">Allowance Type</label>
+                    <select class="form-control">
+                        <option selected>Select Allowance Type</option>
+                        <option>Per Day</option>
+                        <option>Per Month</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Allowance Amount</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinMealHour">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Hour For Meal Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinMealTime">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Time For Meal Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minMealHour">
+                    <label class="font-sm">Min Working Hour For Meal Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minMealTime">
+                    <label class="font-sm">Min Working Time For Meal Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <form class="row">
+
+                <!-- Transport Allowance -->
+
+                <div class="col-12">
+                    <p class="sub-title">Tarnsport Allowance</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasTransportAllowance">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Transport Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="transportAllowance">
+                    <label class="font-sm">Allowance Type</label>
+                    <select class="form-control">
+                        <option selected>Select Allowance Type</option>
+                        <option>Per Day</option>
+                        <option>Per Month</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Eligible Gender</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Gender</option>
+                        <option>All</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinHourTransport">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Hour For Transport Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinTimeTransport">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Time For Transport Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minHourTransport">
+                    <label class="font-sm">Min Working Hour For Transport Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minTimeTransport">
+                    <label class="font-sm">Min Working Time For Transport Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <form class="row">
+
+                <!-- Night Shift Allowance -->
+
+                <div class="col-12">
+                    <p class="sub-title">Night Shift Allowance</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasNightShift">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Night Shift Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="nightShiftType">
+                    <label class="font-sm">Allowance Type</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Allowance Type</option>
+                        <option>Per Day</option>
+                        <option>Per Month</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Eligible Gender</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Gender</option>
+                        <option>All</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinHourNight">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Hour For Night Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinTimeNight">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Time For Night Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minHourNight">
+                    <label class="font-sm">Min Working Hour For Night Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minTimeNight">
+                    <label class="font-sm">Min Working Time For Night Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <form class="row">
+
+                <!-- Weekly Holiday Allowance -->
+
+                <div class="col-12">
+                    <p class="sub-title">Weekly Holiday Allowance</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasWeeklyHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Weekly Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="weeklyHolidayType">
+                    <label class="font-sm">Allowance Type</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Allowance Type</option>
+                        <option>Per Day</option>
+                        <option>Per Month</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Eligible Gender</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Gender</option>
+                        <option>All</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinHourWeeklyHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Hour For Weekly Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinTimeWeeklyHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Time For Weekly Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minHourWeeklyHoliday">
+                    <label class="font-sm">Min Working Hour For Weekly Holiday Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minTimeWeeklyHoliday">
+                    <label class="font-sm">Min Working Time For Weekly Holiday Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <form class="row">
+
+                <!-- Religious Holiday Allowance -->
+
+                <div class="col-12">
+                    <p class="sub-title">Religious Holiday Allowance</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasReligiousHolidayAllowance">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Religious Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="religiousHolidayAllowanceType">
+                    <label class="font-sm">Allowance Type</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Allowance Type</option>
+                        <option>Per Day</option>
+                        <option>Per Month</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Allowance Amount</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinHourReligious">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Hour For Religious Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinTimeReligious">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Time For Religious Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minHourReligious">
+                    <label class="font-sm">Min Working Hour For Religious Holiday Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minTimeReligious">
+                    <label class="font-sm">Min Working Time For Religious Holiday Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+
+            <div class="my-4"></div>
+
+            <form class="row">
+
+                <!-- Other Holiday Allowance -->
+
+                <div class="col-12">
+                    <p class="sub-title">Other Holiday Allowance</p>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasOtherHolidayAllowance">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Other Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="otherHolidayAllowanceType">
+                    <label class="font-sm">Allowance Type</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option selected>Select Allowance Type</option>
+                        <option>Per Day</option>
+                        <option>Per Month</option>
+                    </select>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <label class="font-sm">Allowance Amount</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinHourOtherHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Hour For Other Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="hasMinTimeOtherHoliday">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Min Working Time For Other Holiday Allowance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minHourOtherHoliday">
+                    <label class="font-sm">Min Working Hour For Other Holiday Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-4 form-group  mt-4" id="minTimeOtherHoliday">
+                    <label class="font-sm">Min Working Time For Other Holiday Allowance</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card">
+            <form class="row">
+                <div class="col-12">
+                    <p class="sub-title">Over Time Capacity</p>
+                </div>
+
+                <div class="col-3 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Hourly Capping Limit
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-3 form-group  mt-4">
+                    <label class="font-sm">Max Allowed Hours</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-3 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Daily Capping Limit
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-3 form-group  mt-4">
+                    <label class="font-sm">Max Allowed Days</label>
+                    <input class="form-control" type="number" />
+                </div>
+
+                <div class="col-3 form-group  mt-4">
+                    <div class="form-check" style="padding-top:35px">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label font-sm" for="gridCheck">
+                            Has Bill Amount Capping Limit
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-3 form-group  mt-4">
+                    <label class="font-sm">Bill Amount Allowed Days</label>
+                    <input class="form-control" type="number" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
